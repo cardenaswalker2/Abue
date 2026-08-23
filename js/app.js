@@ -42,8 +42,8 @@ const listaInvitados = [
     { nombre: "Nuris Arrieta", displayName: "Nuris Arrieta", tipo: "femenino" },
     { nombre: "Nevys Jhojanis", displayName: "Nevys Jhojanis", tipo: "femenino" },
     { nombre: "Tia Norelys", displayName: "Tía Norelys", tipo: "femenino" },
-    { nombre: "Yurenis y Mishell", displayName: "Yurenis y Mishell", tipo: "grupal-femenino" },
-    { nombre: "Jheyner y esposa", displayName: "Jheyner y esposa", tipo: "grupal-mixto" },
+    { nombre: "Yurenis y Michel", displayName: "Yurenis y Mishell", tipo: "grupal-femenino" },
+    { nombre: "Jheyner y Familia", displayName: "Jheyner y esposa", tipo: "grupal-mixto" },
     { nombre: "Adalner", displayName: "Adalner", tipo: "masculino" },
     { nombre: "Juan Carlos", displayName: "Juan Carlos", tipo: "masculino" },
     { nombre: "Misael", displayName: "Misael", tipo: "masculino" },
@@ -53,7 +53,17 @@ const listaInvitados = [
     { nombre: "Nayaring Fontalvo Martinez", displayName: "Nayaring Fontalvo Martínez", tipo: "femenino" },
     { nombre: "Luis Alfonso (Tio)", displayName: "Luis Alfonso (Tío)", tipo: "masculino" },
     { nombre: "Jeremias", displayName: "Jeremías", tipo: "masculino" },
-    { nombre: "Onel Rico", displayName: "Onel Rico", tipo: "masculino" }
+    { nombre: "Onel Rico", displayName: "Onel Rico", tipo: "masculino" },
+    { nombre: "Mayra y Familia", displayName: "Mayra y familia", tipo: "grupal" },
+    { nombre: "Yesica", displayName: "Yésica", tipo: "femenino" },
+    { nombre: "Ingrid", displayName: "Ingrid", tipo: "femenino" },
+    { nombre: "Ana", displayName: "Ana", tipo: "femenino" },
+    { nombre: "Rosa", displayName: "Rosa", tipo: "femenino" },
+    { nombre: "Alejandro", displayName: "Alejandro", tipo: "masculino" },
+    { nombre: "Deiris", displayName: "Deiris", tipo: "femenino" },
+    { nombre: "Abi", displayName: "Abi", tipo: "femenino" },
+    { nombre: "Mañe y Familia", displayName: "Mañe y familia", tipo: "grupal" },
+    { nombre: "Marledis y Familia", displayName: "Marledis y familia", tipo: "grupal" }
 ];
 
 // ==========================================
@@ -155,7 +165,7 @@ function buscarInvitado(nombreIngresado) {
             menorDistancia = dist;
             mejorMatch = inv;
         }
-        
+
         // También comparar contra primer nombre individual del invitado
         const primerNombre = invNorm.split(" ")[0];
         if (primerNombre.length >= 4) {
@@ -179,7 +189,7 @@ let isAudioPlaying = false;
 
 function toggleMusica() {
     if (!audioEl) return;
-    
+
     if (isAudioPlaying) {
         audioEl.pause();
         isAudioPlaying = false;
@@ -255,7 +265,7 @@ class AmbientParticle {
         if (!ctx) return;
         ctx.save();
         const currentOpacity = Math.max(0.12, Math.min(0.75, this.opacity));
-        
+
         if (this.type === "heart") {
             ctx.font = `${this.size * 2.8}px serif`;
             ctx.fillStyle = `rgba(230, 57, 70, ${currentOpacity})`;
@@ -309,11 +319,11 @@ function lanzarConfetiCelebracion() {
     for (let i = 0; i < total; i++) {
         const piece = document.createElement("div");
         piece.className = "confetti-piece";
-        
+
         const forma = formas[Math.floor(Math.random() * formas.length)];
         const color = colores[Math.floor(Math.random() * colores.length)];
         const size = Math.random() * 8 + 6;
-        
+
         piece.style.backgroundColor = forma === "heart" ? "transparent" : color;
         piece.style.width = `${size}px`;
         piece.style.height = `${size}px`;
@@ -370,14 +380,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 audioEl.play().then(() => {
                     isAudioPlaying = true;
                     if (musicBtn) musicBtn.classList.add("playing");
-                }).catch(() => {});
+                }).catch(() => { });
             }
 
             welcomeScreen.classList.add("fade-out");
             setTimeout(() => {
                 welcomeScreen.style.display = "none";
                 mainContent.classList.remove("hidden");
-                
+
                 // Scroll suave hacia la carta
                 window.scrollTo({
                     top: 0,
@@ -430,7 +440,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Configurar mensaje según tipo de invitado
             if (guestDisplayName) guestDisplayName.textContent = invitado.displayName;
-            
+
             if (guestGreeting) {
                 if (invitado.tipo === "femenino") {
                     guestGreeting.textContent = "Estás cordialmente invitada";
@@ -446,7 +456,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Mostrar resultado con animación
             guestResultSection.classList.remove("hidden");
-            
+
             // Lanzar confeti festivo
             lanzarConfetiCelebracion();
 
