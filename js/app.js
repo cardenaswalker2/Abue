@@ -42,8 +42,8 @@ const listaInvitados = [
     { nombre: "Nuris Arrieta", displayName: "Nuris Arrieta", tipo: "femenino" },
     { nombre: "Nevys Jhojanis", displayName: "Nevys Jhojanis", tipo: "femenino" },
     { nombre: "Tia Norelys", displayName: "Tía Norelys", tipo: "femenino" },
-    { nombre: "Yurenis y Michel", displayName: "Yurenis y Mishell", tipo: "grupal-femenino" },
-    { nombre: "Jheyner y Familia", displayName: "Jheyner y esposa", tipo: "grupal-mixto" },
+    { nombre: "Yurenis y Michel", displayName: "Yurenis y Michel", tipo: "grupal-femenino" },
+    { nombre: "Jheiner y Familia", displayName: "Jheiner y Familia", tipo: "grupal-mixto" },
     { nombre: "Adalner", displayName: "Adalner", tipo: "masculino" },
     { nombre: "Juan Carlos", displayName: "Juan Carlos", tipo: "masculino" },
     { nombre: "Misael", displayName: "Misael", tipo: "masculino" },
@@ -63,7 +63,8 @@ const listaInvitados = [
     { nombre: "Deiris", displayName: "Deiris", tipo: "femenino" },
     { nombre: "Abi", displayName: "Abi", tipo: "femenino" },
     { nombre: "Mañe y Familia", displayName: "Mañe y familia", tipo: "grupal" },
-    { nombre: "Marledis y Familia", displayName: "Marledis y familia", tipo: "grupal" }
+    { nombre: "Marledis y Familia", displayName: "Marledis y familia", tipo: "grupal" },
+    { nombre: "Marelbis Ramos", displayName: "Marelbis Ramos", tipo: "femenino" }
 ];
 
 // ==========================================
