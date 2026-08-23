@@ -2,7 +2,7 @@
 // 1. CONFIGURACIÓN DEL EVENTO & VARIABLES
 // ==========================================
 const configuracionEvento = {
-    fecha: "Domingo 20 de septiembre",
+    fecha: "Lunes 21 de septiembre",
     año: "2026",
     hora: "8:00 PM",
     horaDetalle: "8:00 de la noche",
