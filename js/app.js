@@ -6,7 +6,7 @@ const configuracionEvento = {
     año: "2026",
     hora: "8:00 PM",
     horaDetalle: "8:00 de la noche",
-    lugar: "Lugar de la celebración",
+    lugar: "Mi residencia",
     lat: 10.4109318,
     lng: -75.4578974,
     mapsUrl: "https://www.google.com/maps/@10.4109318,-75.4578974,3a,75y,57.83h,84.66t/data=!3m7!1e1!3m5!1sMq3YuDWlXfq2pm5djMQsQw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D5.341556406466125%26panoid%3DMq3YuDWlXfq2pm5djMQsQw%26yaw%3D57.83259701595769!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MDgxOS4wIKXMDSoASAFQAw%3D%3D",
