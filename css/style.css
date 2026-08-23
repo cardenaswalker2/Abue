@@ -1,0 +1,1269 @@
+/* ==========================================================================
+   PALETA EQUILIBRADA Y ELEGANTE
+   Base: Borgoña / Vino Tinto Profundo de lujo + Acentos en Rojo Vivo Romántico + Dorado Real + Crema Marfil
+   ========================================================================== */
+
+:root {
+    /* Fondos oscuros elegantes (Vino profundo & Borgoña premium) */
+    --color-bg-dark: #150308;
+    --color-bg-wine: #2e0813;
+    --color-wine-deep: #480b1d;
+    --color-wine-card: #5a0e24;
+    
+    /* Toques de Rojo Vivo / Romántico (Acentos seleccionados) */
+    --color-red-vibrant: #d90429;
+    --color-red-accent: #c1121f;
+    --color-red-glow: rgba(217, 4, 41, 0.4);
+    
+    /* Dorados elegantes */
+    --color-gold-light: #fbe69e;
+    --color-gold: #dfb15b;
+    --color-gold-dark: #9a6f1d;
+    --color-gold-gradient: linear-gradient(135deg, #fce09b 0%, #dfb15b 50%, #9a6f1d 100%);
+    --color-gold-border: rgba(223, 177, 91, 0.45);
+    
+    /* Fondos tipo papel marfil / crema cálido */
+    --color-ivory: #faf7f2;
+    --color-ivory-card: #fdfbf7;
+    --color-ivory-border: #eddccb;
+    --color-text-dark: #29181d;
+    --color-text-muted: #5e474f;
+    --color-text-wine: #480b1d;
+    
+    /* Gradientes equilibrados */
+    --gradient-btn-primary: linear-gradient(135deg, #d90429 0%, #a4161a 50%, #68051a 100%);
+    --gradient-hero: radial-gradient(circle at 50% 25%, rgba(193, 18, 31, 0.4) 0%, transparent 60%),
+                     radial-gradient(circle at 50% 80%, rgba(223, 177, 91, 0.15) 0%, transparent 50%),
+                     linear-gradient(145deg, #150308 0%, #2e0813 50%, #150308 100%);
+
+    /* Tipografías */
+    --font-heading: 'Cinzel', serif;
+    --font-script: 'Great Vibes', cursive;
+    --font-body: 'Montserrat', sans-serif;
+    --font-editorial: 'Playfair Display', serif;
+
+    /* Sombras & Brillos */
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.15);
+    --shadow-deep: 0 20px 50px rgba(18, 3, 8, 0.45);
+    --shadow-card: 0 15px 35px rgba(46, 8, 19, 0.18), 0 5px 15px rgba(0, 0, 0, 0.08);
+    --glow-gold: 0 0 22px rgba(223, 177, 91, 0.4);
+    
+    /* Espaciados y radios */
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-full: 9999px;
+}
+
+/* Reset básico */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: var(--font-body);
+    background: radial-gradient(circle at 50% 20%, #3d0918 0%, #23040e 55%, #120206 100%);
+    background-attachment: fixed;
+    color: var(--color-text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    line-height: 1.6;
+}
+
+/* Canvas para partículas sutiles de fondo */
+#ambient-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ==========================================================================
+   BOTÓN DE CONTROL DE MÚSICA
+   ========================================================================== */
+.music-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    background: rgba(46, 8, 19, 0.85);
+    border: 1.5px solid var(--color-gold);
+    color: var(--color-gold-light);
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), var(--glow-gold);
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s;
+}
+
+.music-toggle:hover {
+    transform: scale(1.08);
+    background: #68051a;
+    box-shadow: 0 6px 20px rgba(223, 177, 91, 0.5);
+}
+
+.music-toggle:active {
+    transform: scale(0.95);
+}
+
+.music-toggle.playing {
+    border-color: #fbe6aa;
+    animation: musicPulse 2s infinite ease-in-out;
+}
+
+.music-waves {
+    display: none;
+    position: absolute;
+    bottom: 8px;
+    gap: 3px;
+}
+
+.music-toggle.playing .music-waves {
+    display: flex;
+}
+
+.music-waves span {
+    width: 2px;
+    height: 8px;
+    background-color: var(--color-gold-light);
+    border-radius: 1px;
+    animation: waveBounce 1.2s infinite ease-in-out alternate;
+}
+
+.music-waves span:nth-child(2) { animation-delay: 0.2s; }
+.music-waves span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes waveBounce {
+    0% { height: 4px; }
+    100% { height: 12px; }
+}
+
+@keyframes musicPulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(223, 177, 91, 0.4); }
+    50% { box-shadow: 0 0 22px rgba(217, 4, 41, 0.6); }
+}
+
+/* ==========================================================================
+   PANTALLA DE BIENVENIDA (HERO) - ELEGANTE CON DEGRADADO PROFUNDO Y TOQUES ROJOS
+   ========================================================================== */
+.welcome-screen {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: var(--gradient-hero);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+    overflow: hidden;
+}
+
+.welcome-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.welcome-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(223, 177, 91, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.welcome-content {
+    position: relative;
+    z-index: 2;
+    max-width: 580px;
+    width: 100%;
+    text-align: center;
+    padding: 40px 24px;
+    border-radius: var(--radius-lg);
+    background: rgba(22, 4, 9, 0.72);
+    border: 1.5px solid rgba(223, 177, 91, 0.4);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), inset 0 0 35px rgba(217, 4, 41, 0.12);
+    animation: welcomeCardEntrance 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes welcomeCardEntrance {
+    0% { opacity: 0; transform: scale(0.92) translateY(20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Esquinas ornamentales */
+.welcome-corner {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    border: 2px solid var(--color-gold);
+    pointer-events: none;
+    opacity: 0.65;
+}
+
+.welcome-corner.top-left { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+.welcome-corner.top-right { top: 20px; right: 20px; border-left: none; border-bottom: none; }
+.welcome-corner.bottom-left { bottom: 20px; left: 20px; border-right: none; border-top: none; }
+.welcome-corner.bottom-right { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+
+.luxury-emblem-small {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--color-gold);
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+}
+
+.emblem-number {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--color-gold-light);
+}
+
+.welcome-pretitle {
+    color: #ebd3da;
+    font-size: 0.95rem;
+    font-weight: 300;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.welcome-name {
+    font-family: var(--font-editorial);
+    font-size: 2.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffffff 15%, #fbe6aa 65%, #dfb15b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+    line-height: 1.25;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Divisores */
+.golden-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 16px auto;
+    width: 80%;
+    color: var(--color-gold);
+}
+
+.golden-divider .line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+.golden-divider.small {
+    width: 60%;
+    margin: 14px auto;
+}
+
+.golden-divider.mini {
+    width: 40%;
+    margin: 10px auto;
+}
+
+.golden-divider .diamond {
+    font-size: 0.95rem;
+    color: var(--color-gold);
+}
+
+/* Placa central de 60 Años con toque rojo sutil */
+.age-badge {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, #a4161a 0%, #480b1d 75%, #1a030a 100%);
+    border: 2px solid var(--color-gold);
+    width: 90px;
+    height: 90px;
+    border-radius: var(--radius-full);
+    margin: 15px auto;
+    box-shadow: 0 0 25px rgba(217, 4, 41, 0.35), inset 0 0 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.age-badge::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border: 1px dashed rgba(223, 177, 91, 0.5);
+    border-radius: var(--radius-full);
+    animation: rotateSlow 20s linear infinite;
+}
+
+@keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.age-badge .age-number {
+    font-family: var(--font-heading);
+    font-size: 2.3rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.age-badge .age-text {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--color-gold-light);
+    margin-top: 2px;
+}
+
+.welcome-subtitle {
+    color: #dfcad1;
+    font-size: 0.95rem;
+    font-style: italic;
+    font-family: var(--font-editorial);
+    margin-top: 10px;
+    margin-bottom: 28px;
+}
+
+/* Botón Abrir Invitación (Toque de Rojo Vivo + Dorado) */
+.btn-open-invitation {
+    position: relative;
+    background: var(--gradient-btn-primary);
+    color: #ffffff;
+    border: 1.5px solid var(--color-gold);
+    padding: 16px 36px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 25px rgba(217, 4, 41, 0.35), 0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+
+.btn-open-invitation:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 15px 35px rgba(217, 4, 41, 0.55), 0 6px 15px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, #e63946 0%, #c1121f 60%, #780000 100%);
+}
+
+.btn-open-invitation:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+.btn-shimmer {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    transform: skewX(-25deg);
+    animation: shimmerSlide 3.5s infinite;
+}
+
+@keyframes shimmerSlide {
+    0% { left: -100%; }
+    35%, 100% { left: 200%; }
+}
+
+/* ==========================================================================
+   CONTENEDOR PRINCIPAL Y ESTILO CARTA (MARFIL / CREMA CON DETALLES VINO Y ROJO)
+   ========================================================================== */
+.main-content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    min-height: 100vh;
+    padding: 40px 16px 80px 16px;
+    display: flex;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 1s ease;
+}
+
+.main-content.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.invitation-wrapper {
+    max-width: 620px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+/* Tarjeta / Carta Elegante */
+.letter-card {
+    position: relative;
+    background-color: var(--color-ivory-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 14px;
+    border: 1px solid var(--color-ivory-border);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.card-inner-border {
+    border: 1.5px solid var(--color-gold-border);
+    border-radius: calc(var(--radius-lg) - 6px);
+    padding: 36px 24px;
+    text-align: center;
+    position: relative;
+    background: radial-gradient(circle at 50% 0%, #fff8f0 0%, #fdfbf7 100%);
+}
+
+/* Ornamentos Florales sutiles */
+.ornament-top {
+    color: var(--color-wine-deep);
+    opacity: 0.85;
+    margin-bottom: 8px;
+}
+
+.floral-svg {
+    width: 90px;
+    height: auto;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+}
+
+.letter-tagline {
+    font-family: var(--font-script);
+    font-size: 2.3rem;
+    color: var(--color-red-vibrant);
+    display: block;
+    line-height: 1.1;
+    margin-bottom: 4px;
+}
+
+.letter-heading {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--color-text-dark);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+.emotional-quote {
+    font-family: var(--font-editorial);
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--color-wine-deep);
+    line-height: 1.6;
+    margin: 20px 0;
+    padding: 0 10px;
+}
+
+.letter-paragraph {
+    color: var(--color-text-muted);
+    font-size: 0.98rem;
+    line-height: 1.8;
+    margin-bottom: 22px;
+}
+
+.letter-paragraph strong {
+    color: var(--color-text-dark);
+    font-weight: 600;
+}
+
+.highlight-box {
+    display: inline-block;
+    padding: 12px 24px;
+    background: rgba(217, 4, 41, 0.06);
+    border: 1px dashed var(--color-gold);
+    border-radius: var(--radius-full);
+}
+
+.highlight-text {
+    font-family: var(--font-editorial);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-red-accent);
+}
+
+/* ==========================================================================
+   SECCIÓN DE BÚSQUEDA DE INVITADOS
+   ========================================================================== */
+.search-section {
+    background: linear-gradient(145deg, #fffdfa 0%, #faf5ee 100%);
+}
+
+.search-header {
+    margin-bottom: 24px;
+}
+
+.search-heart-badge {
+    font-size: 1.9rem;
+    display: inline-block;
+    margin-bottom: 8px;
+    color: var(--color-red-vibrant);
+    animation: heartBeat 2s infinite ease-in-out;
+}
+
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.22); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+}
+
+.search-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    color: var(--color-text-dark);
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.search-instruction {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    font-weight: 400;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+}
+
+.input-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-gold-dark);
+    font-size: 1.1rem;
+    pointer-events: none;
+}
+
+.guest-input {
+    width: 100%;
+    padding: 16px 45px 16px 48px;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--color-text-dark);
+    background: #ffffff;
+    border: 1.5px solid var(--color-gold-border);
+    border-radius: var(--radius-full);
+    outline: none;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.guest-input:focus {
+    border-color: var(--color-red-vibrant);
+    box-shadow: 0 0 0 4px rgba(217, 4, 41, 0.15), inset 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.guest-input::placeholder {
+    color: #9d878f;
+    font-weight: 300;
+}
+
+.btn-clear {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+}
+
+.btn-clear.hidden {
+    display: none;
+}
+
+.btn-primary {
+    background: var(--gradient-btn-primary);
+    color: #ffffff;
+    border: 1px solid var(--color-gold);
+    padding: 16px 28px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-body);
+    font-size: 1.02rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 8px 20px rgba(164, 22, 26, 0.35);
+    transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(217, 4, 41, 0.45);
+    background: linear-gradient(135deg, #e63946 0%, #c1121f 50%, #780000 100%);
+}
+
+.btn-primary:active {
+    transform: translateY(1px);
+}
+
+/* Mensajes de Feedback */
+.search-feedback {
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: var(--radius-md);
+    animation: fadeInSlide 0.4s ease-out;
+}
+
+.search-feedback.hidden {
+    display: none;
+}
+
+.search-feedback.error {
+    background-color: #fff2f4;
+    border: 1px solid #f1c0c8;
+    color: #631221;
+}
+
+.search-feedback .feedback-icon {
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+    color: var(--color-red-vibrant);
+}
+
+.search-feedback h4 {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    margin-bottom: 4px;
+    color: var(--color-wine-deep);
+}
+
+.search-feedback p {
+    font-size: 0.88rem;
+    color: #7a3240;
+}
+
+@keyframes fadeInSlide {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   TARJETA DE INVITACIÓN PERSONALIZADA
+   ========================================================================== */
+.guest-result-section {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    animation: scaleInCard 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.guest-result-section.hidden {
+    display: none;
+}
+
+@keyframes scaleInCard {
+    0% { opacity: 0; transform: scale(0.94) translateY(30px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.guest-card {
+    background: #fffdf9;
+    border: 2px solid var(--color-gold);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25), 0 0 25px rgba(217, 4, 41, 0.15);
+}
+
+.guest-card .card-inner-border {
+    padding: 44px 24px 36px 24px;
+}
+
+/* Sello vintage de 60 en tono rojo vino */
+.wax-seal {
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 52px;
+    height: 52px;
+    background: radial-gradient(circle, #d90429 0%, #68051a 100%);
+    border: 2px solid var(--color-gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+    z-index: 5;
+}
+
+.wax-seal .seal-num {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+.guest-welcome-header {
+    margin-top: 10px;
+    margin-bottom: 12px;
+}
+
+.sparkle-tag {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: var(--color-gold-dark);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.guest-name-title {
+    font-family: var(--font-editorial);
+    font-size: 2.2rem;
+    color: var(--color-wine-deep);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 6px;
+    word-break: break-word;
+}
+
+.guest-invitation-status {
+    font-family: var(--font-script);
+    font-size: 2.2rem;
+    color: var(--color-red-vibrant);
+    line-height: 1.1;
+    margin-bottom: 4px;
+}
+
+.guest-honoree-text {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.honoree-focus {
+    font-family: var(--font-heading);
+    font-size: 1.45rem;
+    color: var(--color-text-dark);
+    letter-spacing: 2px;
+    margin-bottom: 22px;
+}
+
+.guest-quote-block {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.guest-quote-block .quote-p1 {
+    font-family: var(--font-editorial);
+    font-size: 1.12rem;
+    font-style: italic;
+    color: var(--color-wine-deep);
+    line-height: 1.6;
+}
+
+.guest-quote-block .quote-p2 {
+    font-size: 0.98rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+}
+
+.guest-closing-badge {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: radial-gradient(circle, rgba(217, 4, 41, 0.08) 0%, rgba(223, 177, 91, 0.05) 100%);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-gold-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.guest-closing-badge p {
+    font-family: var(--font-editorial);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-red-accent);
+    line-height: 1.4;
+}
+
+.gold-icon {
+    color: var(--color-gold);
+    font-size: 1.2rem;
+}
+
+/* ==========================================================================
+   SECCIÓN DE INFORMACIÓN DEL EVENTO Y MAPA INTERACTIVO
+   ========================================================================== */
+.event-details-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.section-title-wrap {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.section-title-wrap .sub-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--color-gold-light);
+}
+
+.section-title-wrap .section-title {
+    font-family: var(--font-heading);
+    font-size: 1.7rem;
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Tarjeta Resumen Fecha / Hora */
+.event-summary-card {
+    background: linear-gradient(135deg, #fffdfa 0%, #f9f2e7 100%);
+    border: 1.5px solid var(--color-gold);
+}
+
+.summary-inner {
+    padding: 28px 16px;
+}
+
+.summary-grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 16px;
+}
+
+.summary-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.summary-icon {
+    width: 46px;
+    height: 46px;
+    background: rgba(217, 4, 41, 0.08);
+    border: 1.5px solid var(--color-gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-red-vibrant);
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+}
+
+.summary-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--color-gold-dark);
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.summary-main {
+    font-family: var(--font-editorial);
+    font-size: 1.22rem;
+    font-weight: 700;
+    color: var(--color-wine-deep);
+    line-height: 1.25;
+}
+
+.summary-year {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-gold-dark);
+    letter-spacing: 2px;
+    margin-top: 2px;
+}
+
+.summary-extra {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    margin-top: 2px;
+    font-style: italic;
+}
+
+.summary-divider-v {
+    width: 1px;
+    height: 70px;
+    background: linear-gradient(180deg, transparent, var(--color-gold), transparent);
+}
+
+/* Tarjeta del Mapa Interactivo */
+.map-section-card {
+    background: #fffdf9;
+    border: 1.5px solid var(--color-gold);
+}
+
+.map-card-inner {
+    padding: 30px 20px 24px 20px;
+}
+
+.map-header {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.map-pin-icon {
+    font-size: 1.8rem;
+    color: var(--color-red-vibrant);
+    display: inline-block;
+    margin-bottom: 4px;
+    animation: heartBeat 2.5s infinite ease-in-out;
+}
+
+.map-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    color: var(--color-text-dark);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.map-subtitle {
+    font-family: var(--font-editorial);
+    font-size: 1.05rem;
+    color: var(--color-red-accent);
+    font-style: italic;
+}
+
+/* Contenedor responsivo del iframe */
+.map-frame-wrapper {
+    position: relative;
+    width: 100%;
+    height: 290px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 2px solid var(--color-gold-border);
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1), 0 8px 25px rgba(46, 8, 19, 0.15);
+    margin: 16px 0 22px 0;
+    background: #e5e3df;
+}
+
+.map-frame-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+.map-inner-glow {
+    position: absolute;
+    inset: 0;
+    border: 1.5px solid rgba(223, 177, 91, 0.5);
+    border-radius: var(--radius-md);
+    pointer-events: none;
+}
+
+/* Botón Grande: Cómo Llegar */
+.btn-how-to-get {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    background: var(--gradient-btn-primary);
+    color: #ffffff;
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 16px 28px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-gold);
+    box-shadow: 0 8px 22px rgba(217, 4, 41, 0.35);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+
+.btn-how-to-get:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(217, 4, 41, 0.55);
+    background: linear-gradient(135deg, #e63946 0%, #c1121f 60%, #780000 100%);
+}
+
+.btn-how-to-get:active {
+    transform: translateY(1px);
+}
+
+.event-warm-invitation {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--color-gold-border);
+}
+
+.event-warm-invitation p {
+    font-family: var(--font-editorial);
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: var(--color-wine-deep);
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   SECCIÓN FINAL EMOCIONAL
+   ========================================================================== */
+.final-emotional-section {
+    background: radial-gradient(circle at center, rgba(217, 4, 41, 0.25) 0%, transparent 65%),
+                linear-gradient(145deg, #2e0813 0%, #150308 100%);
+    border: 1.5px solid var(--color-gold);
+    margin-top: 10px;
+    color: #ffffff;
+}
+
+.final-emotional-section .card-inner-border {
+    padding: 40px 20px;
+    background: transparent;
+    border-color: rgba(223, 177, 91, 0.35);
+}
+
+.number-monogram {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 800;
+    color: rgba(223, 177, 91, 0.45);
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+}
+
+.final-quote {
+    font-family: var(--font-editorial);
+    font-size: 1.25rem;
+    font-style: italic;
+    color: #ffffff;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.final-thanks {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #fbe6aa;
+    margin-bottom: 16px;
+}
+
+.final-honoree-name {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.final-age {
+    font-size: 0.88rem;
+    color: var(--color-gold-light);
+    letter-spacing: 1.5px;
+    margin-top: 4px;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   CONFETI & PARTICULAS
+   ========================================================================== */
+.confetti-piece {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+    z-index: 999;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (MOBILE-FIRST TUNING)
+   ========================================================================== */
+
+@media (max-width: 480px) {
+    html {
+        font-size: 15px;
+    }
+
+    .welcome-content {
+        padding: 30px 16px;
+    }
+
+    .welcome-name {
+        font-size: 1.75rem;
+    }
+
+    .age-badge {
+        width: 80px;
+        height: 80px;
+    }
+
+    .age-badge .age-number {
+        font-size: 2rem;
+    }
+
+    .btn-open-invitation {
+        padding: 14px 26px;
+        font-size: 0.95rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .main-content {
+        padding: 24px 12px 60px 12px;
+    }
+
+    .letter-card {
+        padding: 10px;
+    }
+
+    .card-inner-border {
+        padding: 28px 16px;
+    }
+
+    .letter-tagline {
+        font-size: 1.95rem;
+    }
+
+    .letter-heading {
+        font-size: 1.25rem;
+    }
+
+    .guest-name-title {
+        font-size: 1.75rem;
+    }
+
+    .guest-invitation-status {
+        font-size: 1.75rem;
+    }
+
+    .honoree-focus {
+        font-size: 1.25rem;
+    }
+
+    .summary-grid {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .summary-divider-v {
+        width: 60%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+    }
+}
+
+@media (max-width: 340px) {
+    html {
+        font-size: 14px;
+    }
+    
+    .welcome-name {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .invitation-wrapper {
+        gap: 40px;
+    }
+
+    .letter-card {
+        padding: 20px;
+    }
+
+    .card-inner-border {
+        padding: 48px 36px;
+    }
+
+    .letter-heading {
+        font-size: 1.8rem;
+    }
+
+    .emotional-quote {
+        font-size: 1.3rem;
+    }
+
+    .guest-card .card-inner-border {
+        padding: 56px 40px 44px 40px;
+    }
+
+    .guest-name-title {
+        font-size: 2.5rem;
+    }
+}
+
+/* Accesibilidad: Reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

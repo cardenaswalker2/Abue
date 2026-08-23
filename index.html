@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Celebración 60 Años | Yesmith Martinez Mendoza</title>
+    <meta name="description" content="Invitación de cumpleaños número 60 de Yesmith Martinez Mendoza. Una celebración de amor, vida y momentos inolvidables.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Great+Vibes&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for subtle luxury icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Audio Background (Optional / Interactive) -->
+    <audio id="bg-audio" preload="auto" loop>
+        <source src="assets/musica.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- Floating Audio Control Button -->
+    <button id="music-btn" class="music-toggle" aria-label="Control de música de fondo" title="Música">
+        <span class="music-icon"><i class="fa-solid fa-music"></i></span>
+        <span class="music-waves">
+            <span></span><span></span><span></span>
+        </span>
+    </button>
+
+    <!-- Canvas for cinematic ambient particles / sparkles / petals -->
+    <canvas id="ambient-canvas"></canvas>
+
+    <!-- PANTALLA INICIAL (Hero / Welcome Screen) -->
+    <section id="welcome-screen" class="welcome-screen">
+        <div class="welcome-bg-overlay"></div>
+        <div class="welcome-content">
+            <div class="luxury-emblem-small">
+                <span class="crown-icon">✦</span>
+                <span class="emblem-number">60</span>
+                <span class="crown-icon">✦</span>
+            </div>
+
+            <p class="welcome-pretitle">Una celebración muy especial está por comenzar...</p>
+            
+            <div class="name-wrapper">
+                <h1 class="welcome-name">Yesmith Martinez Mendoza</h1>
+                <div class="golden-divider">
+                    <span class="line"></span>
+                    <span class="diamond">❖</span>
+                    <span class="line"></span>
+                </div>
+            </div>
+
+            <div class="age-badge">
+                <span class="age-number">60</span>
+                <span class="age-text">AÑOS</span>
+            </div>
+
+            <p class="welcome-subtitle">Años de historias, sonrisas y momentos inolvidables</p>
+
+            <button id="btn-open-invitation" class="btn-open-invitation">
+                <span class="btn-shimmer"></span>
+                <span class="btn-text">Abrir invitación</span>
+                <i class="fa-solid fa-envelope-open-text btn-icon"></i>
+            </button>
+        </div>
+        
+        <div class="welcome-corner top-left"></div>
+        <div class="welcome-corner top-right"></div>
+        <div class="welcome-corner bottom-left"></div>
+        <div class="welcome-corner bottom-right"></div>
+    </section>
+
+    <!-- CONTENEDOR PRINCIPAL DE LA INVITACIÓN -->
+    <main id="main-content" class="main-content hidden">
+        <div class="invitation-wrapper">
+            
+            <!-- CARTA DE INVITACIÓN SUPERIOR -->
+            <article class="letter-card intro-card">
+                <div class="card-inner-border">
+                    <div class="ornament-top">
+                        <svg class="floral-svg" viewBox="0 0 100 25" fill="currentColor">
+                            <path d="M50 0 C45 10 30 12 10 12 C25 14 35 18 38 25 C42 16 46 8 50 0 Z"></path>
+                            <path d="M50 0 C55 10 70 12 90 12 C75 14 65 18 62 25 C58 16 54 8 50 0 Z"></path>
+                            <circle cx="50" cy="12" r="3" fill="#dfb15b"/>
+                        </svg>
+                    </div>
+
+                    <span class="letter-tagline">Con mucho cariño</span>
+                    <h2 class="letter-heading">Celebramos 60 años de vida</h2>
+
+                    <div class="golden-divider small">
+                        <span class="line"></span>
+                        <span class="diamond">❦</span>
+                        <span class="line"></span>
+                    </div>
+
+                    <blockquote class="emotional-quote">
+                        «Hay momentos que merecen ser celebrados, pero hay personas que merecen ser celebradas toda la vida.»
+                    </blockquote>
+
+                    <p class="letter-paragraph">
+                        Por eso queremos compartir una fecha muy especial junto a nuestra querida <strong>Yesmith Martinez Mendoza</strong>, quien llega a sus <strong>60 años</strong>, rodeada del cariño, la alegría y el amor de las personas que han sido parte fundamental de su historia.
+                    </p>
+
+                    <div class="highlight-box">
+                        <p class="highlight-text">Y tú eres una de esas personas especiales.</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- SECCIÓN DE BÚSQUEDA DE INVITADOS -->
+            <section class="search-section letter-card" id="search-section">
+                <div class="card-inner-border search-inner">
+                    <div class="search-header">
+                        <span class="search-heart-badge">❤️</span>
+                        <h3 class="search-title">¿Eres parte de esta celebración?</h3>
+                        <p class="search-instruction">Escribe tu nombre para encontrar tu invitación personalizada.</p>
+                    </div>
+
+                    <form id="search-form" class="search-form" onsubmit="return false;">
+                        <div class="input-group">
+                            <i class="fa-solid fa-signature input-icon"></i>
+                            <input 
+                                type="text" 
+                                id="guest-name-input" 
+                                class="guest-input" 
+                                placeholder="Escribe tu nombre aquí..." 
+                                autocomplete="off" 
+                                spellcheck="false"
+                                aria-label="Escribe tu nombre para buscar tu invitación"
+                            >
+                            <button type="button" id="btn-clear-search" class="btn-clear hidden" aria-label="Limpiar campo">&times;</button>
+                        </div>
+                        <button type="submit" id="btn-search" class="btn-primary">
+                            <span>Ver mi invitación</span>
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
+                    </form>
+
+                    <!-- Mensaje de no encontrado -->
+                    <div id="search-error" class="search-feedback error hidden">
+                        <div class="feedback-icon"><i class="fa-regular fa-face-smile"></i></div>
+                        <h4>Hmm... no logramos encontrar ese nombre. ❤️</h4>
+                        <p>Revisa que esté escrito correctamente e inténtalo nuevamente.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TARJETA DE INVITADO ENCONTRADO (DINÁMICA) -->
+            <section id="guest-result" class="guest-result-section hidden">
+                <div class="guest-card letter-card" id="guest-card-container">
+                    <div class="card-inner-border">
+                        <!-- Sello de 60 años en filigrana -->
+                        <div class="wax-seal">
+                            <span class="seal-num">60</span>
+                        </div>
+
+                        <div class="guest-welcome-header">
+                            <span class="sparkle-tag">✨ ¡Qué alegría tenerte aquí! ✨</span>
+                            <h3 id="guest-display-name" class="guest-name-title">Delvis</h3>
+                            <p id="guest-greeting" class="guest-invitation-status">Estás cordialmente invitada</p>
+                        </div>
+
+                        <div class="golden-divider">
+                            <span class="line"></span>
+                            <span class="diamond">❖</span>
+                            <span class="line"></span>
+                        </div>
+
+                        <p class="guest-honoree-text">
+                            A celebrar juntos los 60 años de nuestra querida
+                        </p>
+                        <h4 class="honoree-focus">YESMITH MARTINEZ MENDOZA</h4>
+
+                        <div class="guest-quote-block">
+                            <p class="quote-p1">
+                                «Una vida se mide en años, pero también en recuerdos, abrazos, risas y personas que hacen que cada momento tenga sentido.»
+                            </p>
+                            <p class="quote-p2">
+                                Queremos compartir esta celebración contigo, porque formas parte de esos momentos que hacen nuestra historia aún más especial.
+                            </p>
+                        </div>
+
+                        <div class="guest-closing-badge">
+                            <i class="fa-solid fa-gem gold-icon"></i>
+                            <p>Tu presencia será uno de los regalos más bonitos de este día.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DETALLES DEL EVENTO Y UBICACIÓN CON MAPA INTERACTIVO -->
+                <section class="event-details-section">
+                    <div class="section-title-wrap">
+                        <span class="sub-label">Detalles de la</span>
+                        <h3 class="section-title">Celebración</h3>
+                        <div class="golden-divider mini">
+                            <span class="line"></span><span class="diamond">❦</span><span class="line"></span>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta con Fecha, Hora y Lugar -->
+                    <div class="event-summary-card letter-card">
+                        <div class="card-inner-border summary-inner">
+                            <div class="summary-grid">
+                                <!-- Fecha -->
+                                <div class="summary-item">
+                                    <div class="summary-icon"><i class="fa-regular fa-calendar-days"></i></div>
+                                    <span class="summary-label">Fecha</span>
+                                    <h4 class="summary-main">Domingo 20 de septiembre</h4>
+                                    <span class="summary-year">2026</span>
+                                </div>
+
+                                <div class="summary-divider-v"></div>
+
+                                <!-- Hora -->
+                                <div class="summary-item">
+                                    <div class="summary-icon"><i class="fa-regular fa-clock"></i></div>
+                                    <span class="summary-label">Hora</span>
+                                    <h4 class="summary-main">8:00 PM</h4>
+                                    <span class="summary-extra">8:00 de la noche</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN MAPA INTERACTIVO -->
+                    <div class="map-section-card letter-card">
+                        <div class="card-inner-border map-card-inner">
+                            <div class="map-header">
+                                <span class="map-pin-icon"><i class="fa-solid fa-location-dot"></i></span>
+                                <h4 class="map-title">Nos encontramos aquí</h4>
+                                <p class="map-subtitle">Lugar de la celebración</p>
+                            </div>
+
+                            <!-- Contenedor del Mapa Embebido -->
+                            <div class="map-frame-wrapper">
+                                <iframe 
+                                    id="interactive-map"
+                                    title="Ubicación de la celebración"
+                                    src="https://maps.google.com/maps?q=10.4109318,-75.4578974&hl=es&z=17&output=embed"
+                                    width="100%" 
+                                    height="100%" 
+                                    style="border:0;" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                                <div class="map-inner-glow"></div>
+                            </div>
+
+                            <!-- Botón Cómo Llegar -->
+                            <a id="btn-how-to-get" href="https://www.google.com/maps/@10.4109318,-75.4578974,3a,75y,57.83h,84.66t/data=!3m7!1e1!3m5!1sMq3YuDWlXfq2pm5djMQsQw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D5.341556406466125%26panoid%3DMq3YuDWlXfq2pm5djMQsQw%26yaw%3D57.83259701595769!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MDgxOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="btn-how-to-get">
+                                <i class="fa-solid fa-location-arrow"></i>
+                                <span>📍 Cómo llegar</span>
+                            </a>
+
+                            <div class="event-warm-invitation">
+                                <p>Te esperamos para celebrar juntos esta noche tan especial. ❤️</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- SECCIÓN FINAL EMOCIONAL -->
+            <footer class="final-emotional-section letter-card">
+                <div class="card-inner-border">
+                    <div class="number-monogram">60</div>
+                    <blockquote class="final-quote">
+                        «Los años pasan...<br>
+                        pero los momentos compartidos permanecen para siempre. ❤️»
+                    </blockquote>
+
+                    <p class="final-thanks">Gracias por formar parte de esta historia.</p>
+
+                    <div class="golden-divider">
+                        <span class="line"></span>
+                        <span class="diamond">❦</span>
+                        <span class="line"></span>
+                    </div>
+
+                    <p class="final-honoree-name">Yesmith Martinez Mendoza</p>
+                    <p class="final-age">60 años de vida y bendición</p>
+                </div>
+            </footer>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+</body>
+</html>
