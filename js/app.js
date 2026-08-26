@@ -4,8 +4,8 @@
 const configuracionEvento = {
     fecha: "Lunes 21 de septiembre",
     año: "2026",
-    hora: "8:00 PM",
-    horaDetalle: "8:00 de la noche",
+    hora: "7:00 PM",
+    horaDetalle: "7:00 de la noche",
     lugar: "Mi residencia",
     lat: 10.410916338642544,
     lng: -75.45787621584036,
