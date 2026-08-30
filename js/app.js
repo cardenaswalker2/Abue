@@ -64,7 +64,10 @@ const listaInvitados = [
     { nombre: "Abi", displayName: "Abi", tipo: "femenino" },
     { nombre: "Mañe y Familia", displayName: "Mañe y familia", tipo: "grupal" },
     { nombre: "Marledis y Familia", displayName: "Marledis y familia", tipo: "grupal" },
-    { nombre: "Marelbis Ramos", displayName: "Marelbis Ramos", tipo: "femenino" }
+    { nombre: "Marelbis Ramos", displayName: "Marelbis Ramos", tipo: "femenino" },
+    { nombre: "Orlando Ramos", displayName: "Orlando Ramos", tipo: "masculino" },
+    { nombre: "Consuelo", displayName: "Consuelo", tipo: "femenino" },
+    { nombre: "Kevin Yesith", displayName: "Kevin Yesith", tipo: "masculino" }
 ];
 
 // ==========================================
