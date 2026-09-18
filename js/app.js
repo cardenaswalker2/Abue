@@ -48,6 +48,7 @@ const listaInvitados = [
     { nombre: "Juan Carlos", displayName: "Juan Carlos", tipo: "masculino" },
     { nombre: "Misael", displayName: "Misael", tipo: "masculino" },
     { nombre: "Yennys Rico", displayName: "Yennys Rico", tipo: "femenino" },
+    { nombre: "Jenny Rico", displayName: "Jenny Rico", tipo: "femenino" },
     { nombre: "Kevin Cardenas", displayName: "Kevin Cárdenas", tipo: "masculino" },
     { nombre: "Darlinson Diaz Martinez", displayName: "Darlinson Díaz Martínez", tipo: "masculino" },
     { nombre: "Nayaring Fontalvo Martinez", displayName: "Nayaring Fontalvo Martínez", tipo: "femenino" },
